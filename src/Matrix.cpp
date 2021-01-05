@@ -1,5 +1,5 @@
 #include "Matrix.h"
-#include <math.h>
+
 using namespace LightNetwork;
 
 Matrix::Matrix(int r, int c)

@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include <math.h>
 namespace LightNetwork
 {
     class Matrix
