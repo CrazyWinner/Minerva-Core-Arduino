@@ -5,9 +5,9 @@
 #include <fstream>
 namespace LightNetwork{
 class LightNetworkHelper{
-    static void exportToFile(NeuralNetwork network, char* fileName);
-    static NeuralNetwork* importFromFile(char* fileName); 
 
+    static NeuralNetwork* importFromFile(char* fileName); 
+    static NeuralNetwork* importFromFlash(char* p);
 
 };
 }
