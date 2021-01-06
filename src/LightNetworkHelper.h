@@ -1,9 +1,8 @@
+
 #include "ActivationFunctions.h"
 #include "NeuralNetwork.h"
 #include "Matrix.h"
-#include <iostream>
-#include <fstream>
-
+#include <Arduino.h>
 class LightNetworkHelper{
     public:
     static NeuralNetwork* importFromFile(char* fileName); 

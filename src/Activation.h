@@ -1,7 +1,6 @@
 #pragma once
 #include "Matrix.h"
-#include <algorithm>
-
+#include <Arduino.h>
     class Activation
     {
     public:

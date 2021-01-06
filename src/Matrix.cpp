@@ -1,5 +1,5 @@
 #include "Matrix.h"
-#include <iostream>
+
 using namespace LightNetwork;
 
 Matrix::Matrix(uint16_t r, uint16_t c)
@@ -181,11 +181,11 @@ void Matrix::printDebug()
     {
         for (int j = 0; j < this->columns; j++)
         {
-            std::cout << data[getIndex(i, j)] << " ";
+          //  std::cout << data[getIndex(i, j)] << " ";
         }
-        std::cout << std::endl;
+       // std::cout << std::endl;
     }
-    std::cout << std::endl;
+   // std::cout << std::endl;
 }
 
 Matrix Matrix::fromArray(uint16_t r, uint16_t c, float* arr)

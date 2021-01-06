@@ -1,6 +1,7 @@
 #pragma once
 #include "Layer.h"
 #define LN LightNetwork
+#include <Arduino.h>
    class NeuralNetwork{
        private:
          

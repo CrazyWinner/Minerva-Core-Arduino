@@ -1,7 +1,7 @@
 #pragma once
 #include "Activation.h"
 #include "Matrix.h"
-#include "math.h"
+#include <Arduino.h>
      class RELU : public Activation
      {
      public:

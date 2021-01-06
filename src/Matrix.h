@@ -1,6 +1,5 @@
 #pragma once
-#include<iostream>
-#include <math.h>
+#include <Arduino.h>
 namespace LightNetwork
 {
     class Matrix

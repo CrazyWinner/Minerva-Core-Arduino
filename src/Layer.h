@@ -2,9 +2,7 @@
 #include "Matrix.h"
 #include "Activation.h"
 #include "ActivationFunctions.h"
-#include <math.h>       /* exp */
-#include<algorithm> 
-#include <vector>
+#include <Arduino.h>
 #define LN LightNetwork
 
     class Layer
