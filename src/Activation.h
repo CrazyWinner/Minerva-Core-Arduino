@@ -1,12 +1,10 @@
 #pragma once
 #include "Matrix.h"
+#include <algorithm>
 
-namespace LightNetwork
-{
     class Activation
     {
     public:
         virtual void activate(float& m) = 0;
     };
 
-} // namespace LightNetwork

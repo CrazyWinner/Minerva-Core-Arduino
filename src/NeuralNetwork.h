@@ -1,19 +1,20 @@
 #pragma once
-#include <vector> 
 #include "Layer.h"
-namespace LightNetwork{
+#define LN LightNetwork
    class NeuralNetwork{
        private:
          
-         int i_count;
+         uint16_t i_count;
+         
        public:
-         std::vector<Layer*> layers;
+         unsigned char layer_count;
+         Layer** layers;
          void reset();
-         NeuralNetwork(int i_c);
+         NeuralNetwork(uint16_t i_c, unsigned char l_c);
          ~NeuralNetwork();
-         void addLayer(int p_c, Activation* act);
-         Matrix guess(Matrix& in);
-         void train(Matrix& in, Matrix& desired_result);
+         void addLayer(uint16_t p_c, Activation* act);
+         LN::Matrix guess(LN::Matrix& in);
+         void train(LN::Matrix& in, LN::Matrix& desired_result);
       
 
 
@@ -22,4 +23,3 @@ namespace LightNetwork{
 
 
 
-}

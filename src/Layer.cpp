@@ -1,30 +1,43 @@
 #include "Layer.h"
 
 
-using namespace LightNetwork;
 
 
-Layer::Layer(int i_s, int p_c, Activation *act, int l_Id)
+
+Layer::Layer(uint16_t i_s, uint16_t p_c, Activation *act, uint16_t l_Id, LN::Matrix* w, LN::Matrix* b)
 {
     this->layerId = l_Id;
     activator = act;
     this->i_size = i_s;
     this->p_count = p_c;
-    weights = new Matrix(p_count, i_size);
-    weights->randomize();
-    bias = new Matrix(p_count, 1);
-    bias->fill();
+    weights = w;
+    bias = b;
+    deleteAfter = false;
+
+}
+
+
+Layer::Layer(uint16_t i_s, uint16_t p_c, Activation *act, uint16_t l_Id)
+{
+    this->layerId = l_Id;
+    activator = act;
+    this->i_size = i_s;
+    this->p_count = p_c;
+    weights = new LN::Matrix(p_count, i_size);
+    bias = new LN::Matrix(p_count, 1);
 
 }
 
 Layer::~Layer()
 {
-    delete activator;
-    delete weights;
+  if(deleteAfter){
     delete bias;
+    delete weights;}
+    delete activator;
+   
 }
 
-float Layer::get_result(Matrix& in, int p_id, std::vector<Layer*>* layers)
+float Layer::get_result(LN::Matrix& in, uint16_t p_id, Layer** layers)
 {
     if(layerId == 0) {
        float a = 0;
@@ -36,8 +49,8 @@ float Layer::get_result(Matrix& in, int p_id, std::vector<Layer*>* layers)
        return a;
     }else{
       float a = 0;
-      for(int j = 0; j <  layers->at(layerId - 1)->p_count; j++){
-        a += layers->at(layerId - 1)->get_result(in, j, layers)  * weights->at(p_id, j);
+      for(int j = 0; j <  layers[layerId - 1] -> p_count; j++){
+        a += layers[layerId - 1]->get_result(in, j, layers)  * weights->at(p_id, j);
       }
       a += bias->at(p_id, 0);
       activator->activate(a);

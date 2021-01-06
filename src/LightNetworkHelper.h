@@ -3,11 +3,10 @@
 #include "Matrix.h"
 #include <iostream>
 #include <fstream>
-namespace LightNetwork{
-class LightNetworkHelper{
 
+class LightNetworkHelper{
+    public:
     static NeuralNetwork* importFromFile(char* fileName); 
     static NeuralNetwork* importFromFlash(char* p);
 
 };
-}

@@ -6,17 +6,17 @@ namespace LightNetwork
     class Matrix
     {
         private:
-          int rows, columns;    
+          uint16_t rows, columns;    
           bool isTransposed = false;
           bool destroyAfter = true;
         public:
           float* data;   
-          Matrix(int r, int c);
-          Matrix(int r, int c, float* arr);
+          Matrix(uint16_t r, uint16_t c);
+          Matrix(uint16_t r, uint16_t c, float* arr);
           ~Matrix();      
           void operator+=(const Matrix &m);
           Matrix operator*(const Matrix &m);
-          float at(int i, int j);
+          float at(uint16_t i, uint16_t j);
           Matrix transpose();
           void doOperation(void (*op)(float&));
           Matrix operator-(const Matrix &m);
@@ -27,9 +27,9 @@ namespace LightNetwork
           void fill();
           void operator-=(const Matrix &m);
           void printDebug();
-          int getIndex (int r,int c) const;
+          uint32_t getIndex (uint16_t r,uint16_t c) const;
           void setTransposed(bool t);
-          static Matrix fromArray(int r, int c, float* arr);   
+          static Matrix fromArray(uint16_t r, uint16_t c, float* arr);   
     
     };
 

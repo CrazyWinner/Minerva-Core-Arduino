@@ -5,22 +5,22 @@
 #include <math.h>       /* exp */
 #include<algorithm> 
 #include <vector>
-namespace LightNetwork
-{
+#define LN LightNetwork
+
     class Layer
-    {
+    {     
     private:
-        float learning_rate;
-        Activation* activator;
-        Matrix* weights;
-        Matrix* bias;     
-        int layerId;   
+        bool deleteAfter = true;    
     public:
-        int i_size,p_count;
-        Layer(int i_s, int p_c, Activation* act, int l_Id);
+        Activation* activator;
+        LN::Matrix* weights;
+        LN::Matrix* bias;     
+        uint16_t layerId;   
+        uint16_t i_size,p_count;
+        Layer(uint16_t i_s, uint16_t p_c, Activation* act, uint16_t l_Id);
+        Layer(uint16_t i_s, uint16_t p_c, Activation* act, uint16_t l_Id, LN::Matrix* w, LN::Matrix* b);
         ~Layer();
-        float get_result(Matrix& in, int p_id, std::vector<Layer*>* layers);
+        float get_result(LN::Matrix& in, uint16_t p_id, Layer** layers);
        
     };
 
-} // namespace LightNetwork

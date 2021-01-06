@@ -1,10 +1,7 @@
 #pragma once
 #include "Activation.h"
 #include "Matrix.h"
-#include <algorithm>
 #include "math.h"
-namespace LightNetwork
-{
      class RELU : public Activation
      {
      public:
@@ -28,4 +25,3 @@ namespace LightNetwork
 
      };
 
-} // namespace LightNetwork

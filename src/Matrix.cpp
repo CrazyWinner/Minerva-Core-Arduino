@@ -1,21 +1,21 @@
 #include "Matrix.h"
-
+#include <iostream>
 using namespace LightNetwork;
 
-Matrix::Matrix(int r, int c)
+Matrix::Matrix(uint16_t r, uint16_t c)
 {
     this->rows = r;
     this->columns = c;
     data = new float[rows * columns]();
 }
-Matrix::Matrix(int r, int c, float *arr)
+Matrix::Matrix(uint16_t r, uint16_t c, float *arr)
 {
     data = arr;
     this->rows = r;
     this->columns = c;
     destroyAfter = false;
 }
-
+/*
 void Matrix::doOperation(void (*op)(float &))
 {
     for (int i = 0; i < this->rows; i++)
@@ -26,12 +26,13 @@ void Matrix::doOperation(void (*op)(float &))
         }
     }
 }
-
+*/
 Matrix::~Matrix()
 {
     if(destroyAfter)
     delete[] data;
 }
+/*
 void Matrix::operator+=(const Matrix &m)
 {
     if (this->rows != m.rows || this->columns != m.columns)
@@ -45,10 +46,13 @@ void Matrix::operator+=(const Matrix &m)
         }
     }
 }
+*/
 /*
 WARNING: Transposed matrices will use the same pointer
 DO NOT DELETE POINTER
 */
+
+/*
 Matrix Matrix::transpose()
 {
     
@@ -57,7 +61,8 @@ Matrix Matrix::transpose()
     return ret;
     
 }
-
+*/
+/*
 void Matrix::operator*=(const float &f)
 {
     for (int i = 0; i < this->rows; i++)
@@ -69,11 +74,11 @@ void Matrix::operator*=(const float &f)
         }
     }
 }
-
+*/
 void Matrix::setTransposed(bool t){
     this->isTransposed = t;
 }
-
+/*
 Matrix Matrix::operator-(const Matrix &m)
 {
     if (this->rows != m.rows || this->columns != m.columns)
@@ -89,6 +94,8 @@ Matrix Matrix::operator-(const Matrix &m)
     }
     return r;
 }
+*/
+/*
 
 void Matrix::operator=(const Matrix &m)
 {
@@ -101,7 +108,9 @@ void Matrix::operator=(const Matrix &m)
     this->columns = m.columns;
     memcpy(this->data, m.data, sizeof(float) * m.rows * m.columns);
 }
+*/
 
+/*
 Matrix Matrix::operator*(const Matrix &m)
 {
     if (this->columns != m.rows)
@@ -122,7 +131,8 @@ Matrix Matrix::operator*(const Matrix &m)
     }
     return r;
 }
-
+*/
+/*
 void Matrix::randomize()
 {
     
@@ -136,7 +146,8 @@ void Matrix::randomize()
         }
     }
 }
-
+*/
+/*
 void Matrix::fill()
 {
     for (int i = 0; i < this->rows; i++)
@@ -147,7 +158,8 @@ void Matrix::fill()
         }
     }
 }
-
+*/
+/*
 void Matrix::hadamard(const Matrix &m)
 {
     if (this->rows != m.rows || this->columns != m.columns)
@@ -161,7 +173,7 @@ void Matrix::hadamard(const Matrix &m)
         }
     }
 }
-
+*/
 void Matrix::printDebug()
 {
 
@@ -176,13 +188,13 @@ void Matrix::printDebug()
     std::cout << std::endl;
 }
 
-Matrix Matrix::fromArray(int r, int c, float* arr)
+Matrix Matrix::fromArray(uint16_t r, uint16_t c, float* arr)
 {
     Matrix m(r, c);
     memcpy(m.data, arr, sizeof(float) * r * c);
     return m;
 }
-
+/*
 void Matrix::operator-=(const Matrix &m)
 {
     if (this->rows != m.rows || this->columns != m.columns)
@@ -196,14 +208,13 @@ void Matrix::operator-=(const Matrix &m)
         }
     }
 }
-
-float Matrix::at(int i, int j)
+*/
+float Matrix::at(uint16_t i, uint16_t j)
 {
     return data[getIndex(i, j)];
 }
 
-int Matrix::getIndex(int r, int c) const
+uint32_t Matrix::getIndex(uint16_t r, uint16_t c) const
 {
-    if(!isTransposed)return r * columns + c;
-    return c * rows + r;
+    return r * columns + c;
 }

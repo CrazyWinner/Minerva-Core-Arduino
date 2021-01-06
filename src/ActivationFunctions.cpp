@@ -1,5 +1,5 @@
 #include "ActivationFunctions.h"
-using namespace LightNetwork;
+
 
 void RELU::activate(float &in)
 {
