@@ -77,9 +77,11 @@ void Matrix::operator*=(const float &f)
     }
 }
 */
+/*
 void Matrix::setTransposed(bool t){
     this->isTransposed = t;
 }
+*/
 /*
 Matrix Matrix::operator-(const Matrix &m)
 {
@@ -176,6 +178,9 @@ void Matrix::hadamard(const Matrix &m)
     }
 }
 */
+Matrix::Matrix(float (*op)(uint16_t,uint16_t)){
+	destroyAfter = false;
+}
 void Matrix::printDebug()
 {
 

@@ -4,20 +4,19 @@ namespace LightNetwork
 {
     class Matrix
     {
-        private:
-       //   uint16_t rows, columns;    
-          bool isTransposed = false;
+        private: 
           bool destroyAfter = true;
 		  bool isProgmem = false;
           uint16_t rows, columns;  		  
         public:    
           float* data;  		
           Matrix(uint16_t r, uint16_t c);
+		  Matrix(float (*op)(uint16_t,uint16_t));
           Matrix(uint16_t r, uint16_t c, float* arr, bool i_p);
-          ~Matrix();      
+          virtual ~Matrix();      
           void operator+=(const Matrix &m);
           Matrix operator*(const Matrix &m);
-          float at(uint16_t i, uint16_t j);
+          virtual float at(uint16_t i, uint16_t j);
           Matrix transpose();
           void doOperation(void (*op)(float&));
           Matrix operator-(const Matrix &m);
