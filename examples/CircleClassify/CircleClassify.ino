@@ -9,7 +9,7 @@ which has 16, 3 and 1 neurons
 We will give inputs between 0 and 1
 it will classify if inputs are in circle or not. 
 Circle has 0.25 radius.
-Network data is pulled from file which i exported witch lightnetwork windows core.
+Network data is pulled from file which i exported with lightnetwork windows core.
 
 
 */
