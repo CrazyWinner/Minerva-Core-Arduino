@@ -45,7 +45,7 @@ float Layer::get_result(LN::Matrix& in, uint16_t p_id, Layer** layers)
            a += in.at(i,0) * weights->at(p_id, i);
        }
        a += bias->at(p_id, 0);
-       activator->activate(a);
+	   activator->activate(a);
        return a;
     }else{
       float a = 0;

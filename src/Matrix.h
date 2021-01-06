@@ -5,13 +5,15 @@ namespace LightNetwork
     class Matrix
     {
         private:
-          uint16_t rows, columns;    
+       //   uint16_t rows, columns;    
           bool isTransposed = false;
           bool destroyAfter = true;
-        public:
-          float* data;   
+		  bool isProgmem = false;
+          uint16_t rows, columns;  		  
+        public:    
+          float* data;  		
           Matrix(uint16_t r, uint16_t c);
-          Matrix(uint16_t r, uint16_t c, float* arr);
+          Matrix(uint16_t r, uint16_t c, float* arr, bool i_p);
           ~Matrix();      
           void operator+=(const Matrix &m);
           Matrix operator*(const Matrix &m);

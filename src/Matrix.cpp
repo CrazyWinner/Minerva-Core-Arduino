@@ -6,13 +6,15 @@ Matrix::Matrix(uint16_t r, uint16_t c)
 {
     this->rows = r;
     this->columns = c;
+	this->isProgmem = false;
     data = new float[rows * columns]();
 }
-Matrix::Matrix(uint16_t r, uint16_t c, float *arr)
+Matrix::Matrix(uint16_t r, uint16_t c, float *arr, bool i_p)
 {
     data = arr;
     this->rows = r;
     this->columns = c;
+	this->isProgmem = i_p;
     destroyAfter = false;
 }
 /*
@@ -181,11 +183,13 @@ void Matrix::printDebug()
     {
         for (int j = 0; j < this->columns; j++)
         {
-          //  std::cout << data[getIndex(i, j)] << " ";
+			Serial.print(at(i,j));
+			Serial.print(" ");
+
         }
-       // std::cout << std::endl;
+      Serial.println("");
     }
-   // std::cout << std::endl;
+  Serial.println("");
 }
 
 Matrix Matrix::fromArray(uint16_t r, uint16_t c, float* arr)
@@ -210,8 +214,11 @@ void Matrix::operator-=(const Matrix &m)
 }
 */
 float Matrix::at(uint16_t i, uint16_t j)
-{
-    return data[getIndex(i, j)];
+{   
+    if(!isProgmem)return data[getIndex(i, j)];
+	float a = 0;
+	memcpy_P(&a, data + getIndex(i, j), 4);
+    return a;
 }
 
 uint32_t Matrix::getIndex(uint16_t r, uint16_t c) const

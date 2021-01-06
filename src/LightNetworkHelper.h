@@ -6,6 +6,6 @@
 class LightNetworkHelper{
     public:
     static NeuralNetwork* importFromFile(char* fileName); 
-    static NeuralNetwork* importFromFlash(char* p);
-
+    static NeuralNetwork* importFromMemory(char* p);
+    static NeuralNetwork* importFromMemory_P(char* p);
 };
