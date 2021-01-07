@@ -1,6 +1,6 @@
 #pragma once
 #include "Matrix.h"
-struct DatalessMatrix : public LN::Matrix
+struct DatalessMatrix : public MNC::Matrix
 {
     float (*atPtr)(uint16_t, uint16_t);
 
@@ -8,7 +8,7 @@ struct DatalessMatrix : public LN::Matrix
     {
         return atPtr(i, j);
     }
-    DatalessMatrix(float (*op)(uint16_t, uint16_t)) : LN::Matrix(op)
+    DatalessMatrix(float (*op)(uint16_t, uint16_t)) : MNC::Matrix(op)
     {
         atPtr = op;
     };

@@ -1,6 +1,5 @@
 #pragma once
 #include "Layer.h"
-#define LN LightNetwork
 #include <Arduino.h>
    class NeuralNetwork{
        private:
@@ -14,8 +13,8 @@
          NeuralNetwork(uint16_t i_c, unsigned char l_c);
          ~NeuralNetwork();
          void addLayer(uint16_t p_c, Activation* act);
-         LN::Matrix guess(LN::Matrix& in);
-         void train(LN::Matrix& in, LN::Matrix& desired_result);
+         MNC::Matrix guess(MNC::Matrix& in);
+         void train(MNC::Matrix& in, MNC::Matrix& desired_result);
       
 
 

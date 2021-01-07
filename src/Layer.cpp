@@ -4,7 +4,7 @@
 
 
 
-Layer::Layer(uint16_t i_s, uint16_t p_c, Activation *act, uint16_t l_Id, LN::Matrix* w, LN::Matrix* b)
+Layer::Layer(uint16_t i_s, uint16_t p_c, Activation *act, uint16_t l_Id, MNC::Matrix* w, MNC::Matrix* b)
 {
     this->layerId = l_Id;
     activator = act;
@@ -36,8 +36,8 @@ Layer::Layer(uint16_t i_s, uint16_t p_c, Activation *act, uint16_t l_Id)
     activator = act;
     this->i_size = i_s;
     this->p_count = p_c;
-    weights = new LN::Matrix(p_count, i_size);
-    bias = new LN::Matrix(p_count, 1);
+    weights = new MNC::Matrix(p_count, i_size);
+    bias = new MNC::Matrix(p_count, 1);
 
 }
 
@@ -61,7 +61,7 @@ Layer::~Layer()
    
 }
 
-float Layer::get_result(LN::Matrix& in, uint16_t p_id, Layer** layers)
+float Layer::get_result(MNC::Matrix& in, uint16_t p_id, Layer** layers)
 {
 	if(optEnabled && opt){
 	return optimizator[p_id];

@@ -1,7 +1,7 @@
-#include "LightNetworkHelper.h"
+#include "Minerva.h"
 
-NeuralNetwork* LightNetworkHelper::importFromFile(char *fileName) {}
-NeuralNetwork* LightNetworkHelper::importFromMemory(char *p)
+NeuralNetwork* Minerva::importFromFile(char *fileName) {}
+NeuralNetwork* Minerva::importFromMemory(char *p)
 {
     unsigned char layerCount = *p;
     NeuralNetwork *network = new NeuralNetwork(1, layerCount);
@@ -20,9 +20,9 @@ NeuralNetwork* LightNetworkHelper::importFromMemory(char *p)
         p += 2;
         columns = *p;
         p += 2;
-        LN::Matrix* w = new LN::Matrix(rows,columns, (float*)p, false);
+        MNC::Matrix* w = new MNC::Matrix(rows,columns, (float*)p, false);
         p += rows * columns * sizeof(float);
-        LN::Matrix* b = new LN::Matrix(rows,1, (float*)p, false);
+        MNC::Matrix* b = new MNC::Matrix(rows,1, (float*)p, false);
         p += rows * sizeof(float);
         Layer *l = new Layer(columns, rows, new SIGMOID(), i, w, b);
         network->layers[i] = l;
@@ -30,7 +30,7 @@ NeuralNetwork* LightNetworkHelper::importFromMemory(char *p)
     return network;
 }
 
-NeuralNetwork* LightNetworkHelper::importFromMemory_P(char *p)
+NeuralNetwork* Minerva::importFromMemory_P(char *p)
 {
     unsigned char layerCount = pgm_read_word(p);
     NeuralNetwork *network = new NeuralNetwork(1, layerCount);
@@ -52,9 +52,9 @@ NeuralNetwork* LightNetworkHelper::importFromMemory_P(char *p)
         columns = 0;
 		memcpy_P(&columns, p, sizeof(uint16_t));
         p += 2;
-        LN::Matrix* w = new LN::Matrix(rows,columns, (float*)p, true);
+        MNC::Matrix* w = new MNC::Matrix(rows,columns, (float*)p, true);
         p += rows * columns * sizeof(float);
-        LN::Matrix* b = new LN::Matrix(rows,1, (float*)p, true);
+        MNC::Matrix* b = new MNC::Matrix(rows,1, (float*)p, true);
         p += rows * sizeof(float);
         Layer *l = new Layer(columns, rows, new SIGMOID(), i, w, b);
         network->layers[i] = l;

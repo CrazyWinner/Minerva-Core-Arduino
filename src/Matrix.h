@@ -1,6 +1,6 @@
 #pragma once
 #include <Arduino.h>
-namespace LightNetwork
+namespace MNC
 {
     class Matrix
     {
@@ -33,4 +33,4 @@ namespace LightNetwork
     
     };
 
-} // namespace LightNetwork
+} // namespace Minerva

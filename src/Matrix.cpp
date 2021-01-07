@@ -1,6 +1,6 @@
 #include "Matrix.h"
 
-using namespace LightNetwork;
+using namespace MNC;
 
 Matrix::Matrix(uint16_t r, uint16_t c)
 {

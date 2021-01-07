@@ -20,9 +20,9 @@ NeuralNetwork::~NeuralNetwork()
 
 
 
-LN::Matrix NeuralNetwork::guess(LN::Matrix &in)
+MNC::Matrix NeuralNetwork::guess(MNC::Matrix &in)
 {
-   LN::Matrix result(layers[layer_count - 1]->p_count,1);
+   MNC::Matrix result(layers[layer_count - 1]->p_count,1);
    for(int i = 0; i < layer_count; i++){
 	   if(layers[i]->isOptimizationEnabled()){
 	   layers[i]->resetOptimization();}
