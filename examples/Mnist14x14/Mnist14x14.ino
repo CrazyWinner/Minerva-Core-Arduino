@@ -98,15 +98,19 @@ void arttir(int times, int& val, bool revert) {
  */
 uint8_t getPixelAt(uint8_t x, uint8_t y) {
   uint8_t* ptr = u8g2.getBufferPtr();
-  uint8_t dat = *(ptr + ((y / 8) * 88) + x);
+  uint8_t dat = *(ptr + ((y / 8) * 88) + x); 
+/*
+ * for some reason, u8g2 uses a 6*88 bytes buffer instead of 
+ * 6*84 bytes, idk why
+ */
   dat = (dat >> (y % 8)) & 0x01;
   return dat;
 }
 
 /*
- * Drawing on the screen is 28*28 we need to scale it down to 14*14
  * With this function we are providing data to DatalessMatrix
- * It will take 4 pixels average
+ * Drawing on the screen is 28*28 we need to scale it down to 14*14
+ * This function will take 4 pixels average
  * So our result will be 14*14
  */
 
@@ -140,9 +144,9 @@ void loop() {
    * Here is the tricky part since our data is on the screen
    * We can't really have a pointer on drawing otherwise our data will be changed
    * Solution? Use the right side of the screen for the input of neural network
-   * To show pointer, copy right side to left side than draw it on left side
+   * And to show pointer just copy right side to left side than draw on it
    * Our data will be same and we have pointer, but the downside is now we have same drawing
-   * on the left side on the screen. Not a big deal
+   * on the both sides of the screen. Not a big deal
    */
   uint8_t* ptr = u8g2.getBufferPtr();
   for (int i = 0; i < u8g2.getBufferTileHeight(); i++) {
