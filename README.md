@@ -1,4 +1,4 @@
-# LightNetwork
+# Minerva
 A lightweight neural network designed to run on microprocessors.
 With this version it will only guess. You can't train network with microprocessor.
 # TODO:
