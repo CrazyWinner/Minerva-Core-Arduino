@@ -2,14 +2,14 @@
 
 using namespace MNC;
 
-Matrix::Matrix(uint16_t r, uint16_t c)
+Matrix::Matrix(const uint32_t&  r, const uint32_t&  c)
 {
     this->rows = r;
     this->columns = c;
 	this->isProgmem = false;
     data = new float[rows * columns]();
 }
-Matrix::Matrix(uint16_t r, uint16_t c, float *arr, bool i_p)
+Matrix::Matrix(const uint32_t& r, const uint32_t& c, float *arr, bool i_p)
 {
     data = arr;
     this->rows = r;
@@ -178,7 +178,7 @@ void Matrix::hadamard(const Matrix &m)
     }
 }
 */
-Matrix::Matrix(float (*op)(uint16_t,uint16_t)){
+Matrix::Matrix(float (*op)(const uint32_t&,const uint32_t&)){
 	destroyAfter = false;
 }
 void Matrix::printDebug()
@@ -197,7 +197,7 @@ void Matrix::printDebug()
   Serial.println("");
 }
 
-Matrix Matrix::fromArray(uint16_t r, uint16_t c, float* arr)
+Matrix Matrix::fromArray(const uint32_t& r, const uint32_t& c, float* arr)
 {
     Matrix m(r, c);
     memcpy(m.data, arr, sizeof(float) * r * c);
@@ -218,7 +218,7 @@ void Matrix::operator-=(const Matrix &m)
     }
 }
 */
-float Matrix::at(uint16_t i, uint16_t j)
+float Matrix::at(const uint32_t& i, const uint32_t& j)
 {   
     if(!isProgmem)return data[getIndex(i, j)];
 	float a = 0;
@@ -226,7 +226,7 @@ float Matrix::at(uint16_t i, uint16_t j)
     return a;
 }
 
-uint32_t Matrix::getIndex(uint16_t r, uint16_t c) const
+uint32_t Matrix::getIndex(const uint32_t& r, const uint32_t& c) const
 {
     return r * columns + c;
 }

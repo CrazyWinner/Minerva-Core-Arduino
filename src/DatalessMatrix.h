@@ -2,13 +2,13 @@
 #include "Matrix.h"
 struct DatalessMatrix : public MNC::Matrix
 {
-    float (*atPtr)(uint16_t, uint16_t);
+    float (*atPtr)(const uint32_t&, const uint32_t&);
 
-    float at(uint16_t i, uint16_t j)
+    float at(const uint32_t& i, const uint32_t& j)
     {
         return atPtr(i, j);
     }
-    DatalessMatrix(float (*op)(uint16_t, uint16_t)) : MNC::Matrix(op)
+    DatalessMatrix(float (*op)(const uint32_t&, const uint32_t&)) : MNC::Matrix(op)
     {
         atPtr = op;
     };

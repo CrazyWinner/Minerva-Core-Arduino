@@ -1,18 +1,18 @@
 #pragma once
 #include "Layer.h"
 #include <Arduino.h>
+#include "Matrix.h"
    class NeuralNetwork{
        private:
          
-         uint16_t i_count;
-         
+         uint32_t i_X;
+         uint32_t i_Y;
+		 uint32_t i_Z;
        public:
          unsigned char layer_count;
          Layer** layers;
-         void reset();
-         NeuralNetwork(uint16_t i_c, unsigned char l_c);
+         NeuralNetwork(const uint32_t& inX, const uint32_t& inY, const uint32_t& inZ, const uint16_t& l_c);
          ~NeuralNetwork();
-         void addLayer(uint16_t p_c, Activation* act);
          MNC::Matrix guess(MNC::Matrix& in);
          void train(MNC::Matrix& in, MNC::Matrix& desired_result);
       
