@@ -1,8 +1,8 @@
 #include "Minerva.h"
-NeuralNetwork* Minerva::importFromFile(char *fileName) {}
-NeuralNetwork* Minerva::importFromMemory(void *p)
+NeuralNetwork *Minerva::importFromFile(char *fileName) {}
+NeuralNetwork *Minerva::importFromMemory(void *p)
 {
-	/*
+    /*
     unsigned char layerCount = *p;
     NeuralNetwork *network = new NeuralNetwork(1, layerCount);
     
@@ -29,65 +29,56 @@ NeuralNetwork* Minerva::importFromMemory(void *p)
     }
     return network;
 	*/
-	return nullptr;
+    return nullptr;
 }
 
-NeuralNetwork* Minerva::importFromMemory_P(void *p)
-{  
-    Serial.println(F("LOADING"));
+NeuralNetwork *Minerva::importFromMemory_P(void *p)
+{
     uint16_t layerCount;
-	memcpy_P(&layerCount, p, sizeof(layerCount));
+    memcpy_P(&layerCount, p, sizeof(layerCount));
     p += sizeof(layerCount);
-	Serial.println((int)layerCount);
-	uint32_t inX, inY, inZ;
-	memcpy_P(&inX, p, sizeof(inX));
-    p += sizeof(inX);
-	memcpy_P(&inY, p, sizeof(inY));
-    p += sizeof(inY);
-	memcpy_P(&inZ, p, sizeof(inZ));
-    p += sizeof(inZ);
-
+    uint32_t inX1, inY1, inZ1;
+    memcpy_P(&inX1, p, sizeof(inX1));
+    p += sizeof(inX1);
+    memcpy_P(&inY1, p, sizeof(inY1));
+    p += sizeof(inY1);
+    memcpy_P(&inZ1, p, sizeof(inZ1));
+    p += sizeof(inZ1);
+    INT_MNC inX = inX1;
+    INT_MNC inY = inY1;
+    INT_MNC inZ = inZ1;
     NeuralNetwork *network = new NeuralNetwork(inX, inY, inZ, layerCount);
-	Activation::ActivationType type;
-    for(uint16_t i = 0; i < layerCount; i++)
+    Activation::ActivationType type;
+    for (uint16_t i = 0; i < layerCount; i++)
     {
-		memcpy_P(&type, p, sizeof(type));
+        memcpy_P(&type, p, sizeof(type));
         p += sizeof(type);
-		Serial.print(F("TYPE"));
-		Serial.println(type);
+        Layer *l;
+        switch (type)
+        {
+        case Layer::FULLY_CONNECTED:
+        {
+            Activation::ActivationType activationType;
+            uint32_t p_count;
+            memcpy_P(&activationType, p, sizeof(activationType));
+            p += sizeof(activationType);
+            p += sizeof(float);
+            memcpy_P(&p_count, p, sizeof(p_count));
+            p += sizeof(p_count);
+            l = new FullyConnected(p_count, activationType, i);
+            MNC::Matrix *w = new MNC::Matrix(p_count, inX * inY * inZ, (float *)p, true);
+            p += inX * inY * inZ * p_count * sizeof(float);
+            MNC::Matrix *b = new MNC::Matrix(p_count, 1, (float *)p, true);
+            p += p_count * sizeof(float);
+            l->init(inX, inY, inZ, w, b);
+        }
+        break;
+        default:
+            break;
+        }
 
-		Layer* l;
-		switch(type){
-		     case Layer::FULLY_CONNECTED:
-           {
-      Activation::ActivationType activationType;
-      uint32_t p_count;
-	  memcpy_P(&activationType, p, sizeof(activationType));
-      p += sizeof(activationType);
-	  p += sizeof(float); 
-	  memcpy_P(&p_count, p, sizeof(p_count));
-      p += sizeof(p_count);
-	  l = new FullyConnected(p_count, activationType, i);
-      MNC::Matrix* w = new MNC::Matrix(p_count, inX * inY * inZ, (float*)p, true);
-	  p += inX * inY * inZ * p_count * sizeof(float);
-	  MNC::Matrix* b = new MNC::Matrix(p_count, 1, (float*)p, true);
-	  p += p_count * sizeof(float);
-      l->init(inX, inY, inZ, w, b);
-	  
-    }
-    break;	
-	default:
-	break;
-			
-		}
-	 
-	  l->getOutDimensions(inX, inY, inZ);
-	  	Serial.println(inX);
-	    Serial.println(inY);
-	    Serial.println(inZ);
-	  network->layers[i] = l;  
+        l->getOutDimensions(inX, inY, inZ);
+        network->layers[i] = l;
     }
     return network;
 }
-
-

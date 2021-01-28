@@ -2,19 +2,19 @@
 
 using namespace MNC;
 
-Matrix::Matrix(const uint32_t&  r, const uint32_t&  c)
+Matrix::Matrix(const INT_MNC& r, const INT_MNC& c)
 {
     this->rows = r;
     this->columns = c;
-	this->isProgmem = false;
+    this->isProgmem = false;
     data = new float[rows * columns]();
 }
-Matrix::Matrix(const uint32_t& r, const uint32_t& c, float *arr, bool i_p)
+Matrix::Matrix(const INT_MNC& r, const INT_MNC& c, float *arr, bool i_p)
 {
     data = arr;
     this->rows = r;
     this->columns = c;
-	this->isProgmem = i_p;
+    this->isProgmem = i_p;
     destroyAfter = false;
 }
 /*
@@ -31,8 +31,8 @@ void Matrix::doOperation(void (*op)(float &))
 */
 Matrix::~Matrix()
 {
-    if(destroyAfter)
-    delete[] data;
+    if (destroyAfter)
+        delete[] data;
 }
 /*
 void Matrix::operator+=(const Matrix &m)
@@ -178,8 +178,9 @@ void Matrix::hadamard(const Matrix &m)
     }
 }
 */
-Matrix::Matrix(float (*op)(const uint32_t&,const uint32_t&)){
-	destroyAfter = false;
+Matrix::Matrix(float (*op)(const INT_MNC&, const INT_MNC&))
+{
+    destroyAfter = false;
 }
 void Matrix::printDebug()
 {
@@ -188,16 +189,15 @@ void Matrix::printDebug()
     {
         for (int j = 0; j < this->columns; j++)
         {
-			Serial.print(at(i,j));
-			Serial.print(" ");
-
+            Serial.print(at(i, j));
+            Serial.print(" ");
         }
-      Serial.println("");
+        Serial.println("");
     }
-  Serial.println("");
+    Serial.println("");
 }
 
-Matrix Matrix::fromArray(const uint32_t& r, const uint32_t& c, float* arr)
+Matrix Matrix::fromArray(const INT_MNC& r, const INT_MNC& c, float *arr)
 {
     Matrix m(r, c);
     memcpy(m.data, arr, sizeof(float) * r * c);
@@ -218,15 +218,16 @@ void Matrix::operator-=(const Matrix &m)
     }
 }
 */
-float Matrix::at(const uint32_t& i, const uint32_t& j)
-{   
-    if(!isProgmem)return data[getIndex(i, j)];
-	float a = 0;
-	memcpy_P(&a, data + getIndex(i, j), 4);
+float Matrix::at(const INT_MNC& i, const INT_MNC& j)
+{
+    if (!isProgmem)
+        return data[getIndex(i, j)];
+    float a = 0;
+    memcpy_P(&a, data + getIndex(i, j), 4);
     return a;
 }
 
-uint32_t Matrix::getIndex(const uint32_t& r, const uint32_t& c) const
+INT_MNC Matrix::getIndex(const INT_MNC& r, const INT_MNC& c) const
 {
     return r * columns + c;
 }
