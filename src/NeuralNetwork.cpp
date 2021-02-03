@@ -22,12 +22,12 @@ NeuralNetwork::~NeuralNetwork()
   delete[] layers;
 }
 
-MNC::Matrix NeuralNetwork::guess(MNC::Matrix &in)
+Matrix NeuralNetwork::guess(Matrix &in)
 {
   INT_MNC outX, outY, outZ;
   layers[layer_count - 1]->getOutDimensions(outX, outY, outZ);
   outY = outX * outY * outZ;
-  MNC::Matrix result(outY, 1);
+  Matrix result(outY, 1);
   for (uint16_t i = 0; i < layer_count; i++)
   {
     if (layers[i]->isCacheEnabled())

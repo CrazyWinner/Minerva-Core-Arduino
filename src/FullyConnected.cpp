@@ -6,7 +6,7 @@ FullyConnected::FullyConnected(INT_MNC p_c, Activation::ActivationType act, INT_
 	this->p_count = p_c;
 }
 
-void FullyConnected::init(const INT_MNC& inX, const INT_MNC& inY, const INT_MNC& inZ, MNC::Matrix *w, MNC::Matrix *b)
+void FullyConnected::init(const INT_MNC& inX, const INT_MNC& inY, const INT_MNC& inZ, Matrix *w, Matrix *b)
 {
 	this->i_size = inX * inY * inZ;
 	weights = w;
@@ -20,7 +20,7 @@ void FullyConnected::getOutDimensions(INT_MNC &outX, INT_MNC &outY, INT_MNC &out
 	outZ = 1;
 }
 
-float FullyConnected::get_result(const MNC::Matrix &in, INT_MNC p_id, Layer **layers)
+float FullyConnected::get_result(const Matrix &in, INT_MNC p_id, Layer **layers)
 {
 	if (isCacheEnabled() && cached)
 	{

@@ -1,20 +1,17 @@
 #include "Matrix.h"
 
-using namespace MNC;
 
 Matrix::Matrix(const INT_MNC& r, const INT_MNC& c)
 {
     this->rows = r;
     this->columns = c;
-    this->isProgmem = false;
     data = new float[rows * columns]();
 }
-Matrix::Matrix(const INT_MNC& r, const INT_MNC& c, float *arr, bool i_p)
+Matrix::Matrix(const INT_MNC& r, const INT_MNC& c, float *arr)
 {
     data = arr;
     this->rows = r;
     this->columns = c;
-    this->isProgmem = i_p;
     destroyAfter = false;
 }
 
@@ -24,9 +21,9 @@ Matrix::~Matrix()
         delete[] data;
 }
 
-Matrix::Matrix(float (*op)(const INT_MNC&, const INT_MNC&))
+Matrix::Matrix(bool da)
 {
-    destroyAfter = false;
+    destroyAfter = da;
 }
 
 void Matrix::printDebug() const
@@ -53,11 +50,7 @@ Matrix Matrix::fromArray(const INT_MNC& r, const INT_MNC& c, float *arr)
 
 float Matrix::at(const INT_MNC& i, const INT_MNC& j) const
 {
-    if (!isProgmem)
         return data[getIndex(i, j)];
-    float a = 0;
-    memcpy_P(&a, data + getIndex(i, j), 4);
-    return a;
 }
 
 INT_MNC Matrix::getIndex(const INT_MNC& r, const INT_MNC& c) const

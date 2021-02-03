@@ -14,5 +14,5 @@ public:
   Layer **layers = nullptr;
   void init(const INT_MNC& inX, const INT_MNC& inY, const INT_MNC& inZ, uint16_t l_c);
   ~NeuralNetwork();
-  MNC::Matrix guess(MNC::Matrix &in);
+  Matrix guess(Matrix &in);
 };
