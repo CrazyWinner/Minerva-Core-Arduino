@@ -29,5 +29,5 @@ public:
     ~Layer();
     virtual float get_result(const MNC::Matrix &in, INT_MNC p_id, Layer **layers) = 0;
     virtual void init(const INT_MNC& inX, const INT_MNC& inY, const INT_MNC& inZ, MNC::Matrix *w, MNC::Matrix *b) = 0;
-    virtual void getOutDimensions(INT_MNC &outX, INT_MNC &outY, INT_MNC &outZ) = 0;
+    virtual void getOutDimensions(INT_MNC &outX, INT_MNC &outY, INT_MNC &outZ) const = 0;
 };

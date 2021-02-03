@@ -8,7 +8,8 @@
 class Minerva
 {
 public:
-    static NeuralNetwork *importFromFile(char *fileName);
-    static NeuralNetwork *importFromMemory(void *p);
-    static NeuralNetwork *importFromMemory_P(void *pt);
+    static void importFromFile(NeuralNetwork& network, const char *fileName);
+    static void importFromMemory(NeuralNetwork& network, const void *p);
+    static void importFromMemory_P(NeuralNetwork& network, const void *pt);
+	
 };

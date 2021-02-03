@@ -5,7 +5,7 @@ struct DatalessMatrix : public MNC::Matrix
 {
     float (*atPtr)(const INT_MNC&, const INT_MNC&);
 
-    float at(const INT_MNC& i, const INT_MNC& j)
+    float at(const INT_MNC& i, const INT_MNC& j) const 
     {
         return atPtr(i, j);
     }

@@ -13,7 +13,7 @@ void FullyConnected::init(const INT_MNC& inX, const INT_MNC& inY, const INT_MNC&
 	bias = b;
 }
 
-void FullyConnected::getOutDimensions(INT_MNC &outX, INT_MNC &outY, INT_MNC &outZ)
+void FullyConnected::getOutDimensions(INT_MNC &outX, INT_MNC &outY, INT_MNC &outZ) const
 {
 	outX = 1;
 	outY = p_count;

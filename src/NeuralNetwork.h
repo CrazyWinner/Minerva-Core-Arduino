@@ -11,9 +11,8 @@ private:
 
 public:
   unsigned char layer_count;
-  Layer **layers;
-  NeuralNetwork(const INT_MNC& inX, const INT_MNC& inY, const INT_MNC& inZ, uint16_t l_c);
+  Layer **layers = nullptr;
+  void init(const INT_MNC& inX, const INT_MNC& inY, const INT_MNC& inZ, uint16_t l_c);
   ~NeuralNetwork();
   MNC::Matrix guess(MNC::Matrix &in);
-  void train(MNC::Matrix &in, MNC::Matrix &desired_result);
 };

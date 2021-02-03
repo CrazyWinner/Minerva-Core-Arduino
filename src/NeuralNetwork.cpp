@@ -1,8 +1,9 @@
 
 #include "NeuralNetwork.h"
 
-NeuralNetwork::NeuralNetwork(const INT_MNC& inX, const INT_MNC& inY, const INT_MNC& inZ, uint16_t l_c)
+void NeuralNetwork::init(const INT_MNC& inX, const INT_MNC& inY, const INT_MNC& inZ, uint16_t l_c)
 {
+  delete[] layers;
   i_X = inX;
   i_Y = inY;
   i_Z = inZ;
@@ -10,12 +11,15 @@ NeuralNetwork::NeuralNetwork(const INT_MNC& inX, const INT_MNC& inY, const INT_M
   this->layers = new Layer *[l_c];
 }
 
+
+
 NeuralNetwork::~NeuralNetwork()
 {
   for (unsigned char i = 0; i < layer_count; i++)
   {
     delete layers[i];
   }
+  delete[] layers;
 }
 
 MNC::Matrix NeuralNetwork::guess(MNC::Matrix &in)

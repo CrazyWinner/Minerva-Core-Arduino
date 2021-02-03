@@ -1,39 +1,13 @@
 #include "Minerva.h"
-NeuralNetwork *Minerva::importFromFile(char *fileName) {}
-NeuralNetwork *Minerva::importFromMemory(void *p)
+void Minerva::importFromFile(NeuralNetwork& network, const char *fileName) {}
+void Minerva::importFromMemory(NeuralNetwork& network, const void *p2)
 {
-    /*
-    unsigned char layerCount = *p;
-    NeuralNetwork *network = new NeuralNetwork(1, layerCount);
-    
 
-    p++;
-    for(unsigned char i = 0; i < layerCount; i++)
-    {
-        unsigned char activation;
-        activation = *p;
-        p++;
-        float lr = *p;
-        p += sizeof(float);
-        uint16_t rows, columns;
-        rows = *p;
-        p += 2;
-        columns = *p;
-        p += 2;
-        MNC::Matrix* w = new MNC::Matrix(rows,columns, (float*)p, false);
-        p += rows * columns * sizeof(float);
-        MNC::Matrix* b = new MNC::Matrix(rows,1, (float*)p, false);
-        p += rows * sizeof(float);
-        Layer *l = new Layer(columns, rows, new SIGMOID(), i, w, b);
-        network->layers[i] = l;
-    }
-    return network;
-	*/
-    return nullptr;
 }
 
-NeuralNetwork *Minerva::importFromMemory_P(void *p)
+void Minerva::importFromMemory_P(NeuralNetwork& network, const void *p2)
 {
+	void *p = (void*)p2;
     uint16_t layerCount;
     memcpy_P(&layerCount, p, sizeof(layerCount));
     p += sizeof(layerCount);
@@ -47,7 +21,7 @@ NeuralNetwork *Minerva::importFromMemory_P(void *p)
     INT_MNC inX = inX1;
     INT_MNC inY = inY1;
     INT_MNC inZ = inZ1;
-    NeuralNetwork *network = new NeuralNetwork(inX, inY, inZ, layerCount);
+	network.init(inX, inY, inZ, layerCount);
     Activation::ActivationType type;
     for (uint16_t i = 0; i < layerCount; i++)
     {
@@ -78,7 +52,6 @@ NeuralNetwork *Minerva::importFromMemory_P(void *p)
         }
 
         l->getOutDimensions(inX, inY, inZ);
-        network->layers[i] = l;
+        network.layers[i] = l;
     }
-    return network;
 }
