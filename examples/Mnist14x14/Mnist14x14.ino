@@ -33,7 +33,7 @@ const unsigned char networkData[] PROGMEM = {0x03,0x00,0x0E,0x00,0x00,0x00,0x0E,
 float getData(const INT_MNC& r, const INT_MNC& c);
 void arttir(int times, int& val, bool revert);
 NeuralNetwork nn;
-uint8_t findMax(MNC::Matrix& m);
+uint8_t findMax(Matrix& m);
 
 /*
  * DatalessMatrix as the name applies doesn't have data. We need to provide the data
@@ -179,7 +179,7 @@ void loop() {
    */
   if (digitalRead(6) == HIGH && abs(analogRead(A0) - 506) < 100 && abs(analogRead(A1) - 524) < 100) {
     if (show) {
-      MNC::Matrix result = nn.guess(input);
+      Matrix result = nn.guess(input);
       uint8_t res_int = findMax(result);
       u8g2.setCursor(63, 48);
       u8g2.print(res_int);
@@ -191,7 +191,7 @@ void loop() {
 
 }
 
-uint8_t findMax(MNC::Matrix& m) {
+uint8_t findMax(Matrix& m) {
   float maxVal = m.at(0, 0);
   float maxId = 0;
   for (int i = 1; i < 10; i++) {
