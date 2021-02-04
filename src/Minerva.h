@@ -2,6 +2,8 @@
 #include "Activation.h"
 #include "NeuralNetwork.h"
 #include "FullyConnected.h"
+#include "Conv2D.h"
+#include "MaxPooling.h"
 #include "Matrix.h"
 #include "Matrix_P.h"
 #include <Arduino.h>

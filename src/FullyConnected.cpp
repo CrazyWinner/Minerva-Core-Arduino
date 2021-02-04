@@ -29,15 +29,8 @@ float FullyConnected::get_result(const Matrix &in, INT_MNC p_id, Layer **layers)
 	float a = 0;
 	for (uint32_t i = 0; i < i_size; i++)
 	{
-
-		if (layerId == 0)
-		{
-			a += in.at(i, 0) * weights->at(p_id, i);
-		}
-		else
-		{
-			a += layers[layerId - 1]->get_result(in, i, layers) * weights->at(p_id, i);
-		}
+        float b = layerId == 0 ? in.at(i, 0) : layers[layerId - 1]->get_result(in, i, layers);
+		a += b * weights->at(p_id, i);
 	}
 	a += bias->at(p_id, 0);
 	Activation::activate(a, activationType);
