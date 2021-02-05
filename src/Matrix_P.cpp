@@ -1,12 +1,12 @@
 #include "Matrix_P.h"
-Matrix_P::Matrix_P(const INT_MNC& r, const INT_MNC& c, float *arr) : Matrix(r, c, arr)
+Matrix_P::Matrix_P(const INT_MNC& sX, const INT_MNC& sY, const INT_MNC& sZ, float *arr) : Matrix3D(sX, sY, sZ, arr)
 {
 	
 }
 
-float Matrix_P::at(const INT_MNC& i, const INT_MNC& j) const
+float Matrix_P::at(const INT_MNC& x, const INT_MNC& y, const INT_MNC& z) const
 {
 	float a = 0;
-    memcpy_P(&a, data + getIndex(i, j), 4);
+    memcpy_P(&a, data + getIndex(x, y, z), 4);
     return a;
 }

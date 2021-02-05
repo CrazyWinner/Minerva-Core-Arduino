@@ -22,12 +22,11 @@ NeuralNetwork::~NeuralNetwork()
   delete[] layers;
 }
 
-Matrix NeuralNetwork::guess(Matrix &in)
+Matrix3D NeuralNetwork::guess(Matrix3D &in)
 {
   INT_MNC outX, outY, outZ;
   layers[layer_count - 1]->getOutDimensions(outX, outY, outZ);
-  outY = outX * outY * outZ;
-  Matrix result(outY, 1);
+  Matrix3D result(outX , outY, outZ);
   for (uint16_t i = 0; i < layer_count; i++)
   {
     if (layers[i]->isCacheEnabled())
@@ -36,9 +35,13 @@ Matrix NeuralNetwork::guess(Matrix &in)
     }
   }
 
-  for (INT_MNC i = 0; i < outY; i++)
-  {
-    result.data[i] = layers[layer_count - 1]->get_result(in, i, layers);
+  for(INT_MNC z = 0; z < outZ; z++){
+	 for(INT_MNC y = 0; y < outY; y++){
+	    for(INT_MNC x = 0; x < outX; x++){
+			result.set(x, y, z, layers[layer_count - 1]->get_result(in, x, y, z, layers));
   }
+  } 
+  }
+
   return result;
 }

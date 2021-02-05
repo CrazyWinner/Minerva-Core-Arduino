@@ -1,39 +1,45 @@
 #include "Matrix.h"
 
 
-Matrix::Matrix(const INT_MNC& r, const INT_MNC& c)
+Matrix3D::Matrix3D(const INT_MNC& sX, const INT_MNC& sY, const INT_MNC& sZ)
 {
-    this->rows = r;
-    this->columns = c;
-    data = new float[rows * columns]();
+	sizeX = sX;
+	sizeY = sY;
+	sizeZ = sZ;
+    data = new float[sX * sY * sZ]();
 }
-Matrix::Matrix(const INT_MNC& r, const INT_MNC& c, float *arr)
+Matrix3D::Matrix3D(const INT_MNC& sX, const INT_MNC& sY, const INT_MNC& sZ, float *arr)
 {
     data = arr;
-    this->rows = r;
-    this->columns = c;
+	sizeX = sX;
+	sizeY = sY;
+	sizeZ = sZ;
     destroyAfter = false;
 }
 
-Matrix::~Matrix()
+Matrix3D::~Matrix3D()
 {
     if (destroyAfter)
         delete[] data;
 }
 
-Matrix::Matrix(bool da)
+Matrix3D::Matrix3D(bool da)
 {
     destroyAfter = da;
 }
 
-void Matrix::printDebug() const
+void Matrix3D::set(const INT_MNC& x, const INT_MNC& y, const INT_MNC& z, const float& a){
+	data[getIndex(x,y,z)] = a;
+}
+
+void Matrix3D::printDebug() const
 {
 
-    for (int i = 0; i < this->rows; i++)
+    for (int y = 0; y < sizeY; y++)
     {
-        for (int j = 0; j < this->columns; j++)
+        for (int x = 0; x < sizeX; x++)
         {
-            Serial.print(at(i, j));
+            Serial.print(at(x, y, 0));
             Serial.print(" ");
         }
         Serial.println("");
@@ -41,19 +47,19 @@ void Matrix::printDebug() const
     Serial.println("");
 }
 
-Matrix Matrix::fromArray(const INT_MNC& r, const INT_MNC& c, float *arr)
+Matrix3D Matrix3D::fromArray(const INT_MNC& sX, const INT_MNC& sY, const INT_MNC& sZ, float *arr)
 {
-    Matrix m(r, c);
-    memcpy(m.data, arr, sizeof(float) * r * c);
+    Matrix3D m(sX, sY, sZ);
+    memcpy(m.data, arr, sizeof(float) * sX * sY * sZ);
     return m;
 }
 
-float Matrix::at(const INT_MNC& i, const INT_MNC& j) const
+float Matrix3D::at(const INT_MNC& x, const INT_MNC& y, const INT_MNC& z) const
 {
-        return data[getIndex(i, j)];
+        return data[getIndex(x,y,z)];
 }
 
-INT_MNC Matrix::getIndex(const INT_MNC& r, const INT_MNC& c) const
+INT_MNC Matrix3D::getIndex(const INT_MNC& x, const INT_MNC& y, const INT_MNC& z) const
 {
-    return r * columns + c;
+    return z * sizeX * sizeY + y * sizeX + x;
 }

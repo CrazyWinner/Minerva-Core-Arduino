@@ -1,6 +1,5 @@
 #pragma once
 #include "Matrix.h"
-
 class Activation
 {
 public:

@@ -4,6 +4,7 @@
 #include "FullyConnected.h"
 #include "Conv2D.h"
 #include "MaxPooling.h"
+#include "Flatten.h"
 #include "Matrix.h"
 #include "Matrix_P.h"
 #include <Arduino.h>
@@ -19,7 +20,7 @@ private:
     };
     static void import(NeuralNetwork& network, void *p, LoadType loadType);	
 	static void cpy(const void* sourcePtr, const void* destPtr, size_t size, LoadType loadType);
-	static Matrix* getMatrix(const INT_MNC& r, const INT_MNC& c, float *arr, LoadType loadType);
+	static Matrix3D* getMatrix(const INT_MNC& sX, const INT_MNC& sY, const INT_MNC& sZ, float *arr, LoadType loadType);
 public:
     static void importFromFile(NeuralNetwork& network, const char *fileName);
     static void importFromMemory(NeuralNetwork& network, const void *p);

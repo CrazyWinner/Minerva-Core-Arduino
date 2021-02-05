@@ -9,7 +9,7 @@ private:
 
 public:
     Conv2D(const INT_MNC& fsx, const INT_MNC& fsy, const INT_MNC& f_c, const INT_MNC& pd_x, const INT_MNC& pd_y, Activation::ActivationType act,  INT_MNC l_Id);
-    float get_result(const Matrix &in, INT_MNC p_id, Layer **layers);
-    void init(const INT_MNC& inX, const INT_MNC& inY, const INT_MNC& inZ, Matrix *w, Matrix *b);
+    float get_result(const Matrix3D &in, const INT_MNC& x,  const INT_MNC& y,  const INT_MNC& z, Layer **layers);
+    void init(const INT_MNC& inX, const INT_MNC& inY, const INT_MNC& inZ, Matrix3D *w, Matrix3D *b);
     void getOutDimensions(INT_MNC &outX, INT_MNC &outY, INT_MNC &outZ) const;
 };

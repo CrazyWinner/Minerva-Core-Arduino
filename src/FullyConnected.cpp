@@ -6,7 +6,7 @@ FullyConnected::FullyConnected(INT_MNC p_c, Activation::ActivationType act, INT_
 	this->p_count = p_c;
 }
 
-void FullyConnected::init(const INT_MNC& inX, const INT_MNC& inY, const INT_MNC& inZ, Matrix *w, Matrix *b)
+void FullyConnected::init(const INT_MNC& inX, const INT_MNC& inY, const INT_MNC& inZ, Matrix3D *w, Matrix3D *b)
 {
 	this->i_size = inX * inY * inZ;
 	weights = w;
@@ -20,26 +20,27 @@ void FullyConnected::getOutDimensions(INT_MNC &outX, INT_MNC &outY, INT_MNC &out
 	outZ = 1;
 }
 
-float FullyConnected::get_result(const Matrix &in, INT_MNC p_id, Layer **layers)
+float FullyConnected::get_result(const Matrix3D &in, const INT_MNC& x,  const INT_MNC& y,  const INT_MNC& z, Layer **layers)
 {
 	if (isCacheEnabled() && cached)
 	{
-		return cache[p_id];
+		return cache[y];
 	}
 	float a = 0;
 	for (uint32_t i = 0; i < i_size; i++)
 	{
-        float b = layerId == 0 ? in.at(i, 0) : layers[layerId - 1]->get_result(in, i, layers);
-		a += b * weights->at(p_id, i);
+        float b = layerId == 0 ? in.at(0, i, 0) : layers[layerId - 1]->get_result(in, 0, i, 0, layers);
+		a += b * weights->at(i, y, 0);
 	}
-	a += bias->at(p_id, 0);
+	a += bias->at(0, y, 0);
 	Activation::activate(a, activationType);
 
 	if (isCacheEnabled())
 	{
-		cache[p_id] = a;
-	}
-	if (p_id == p_count - 1)
+		cache[y] = a;
+		if (y == p_count - 1)
 		cached = true;
+	}
+
 	return a;
 }
